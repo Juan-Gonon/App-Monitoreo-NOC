@@ -14,13 +14,13 @@ import 'dotenv/config'
 
 function main(){
 
-    // Server.start()
+    Server.start()
 
-    console.log({
-        email: process.env.MAILER_EMAIL,
-        // port: process.env.PORT
-        port: envs.PORT,
-        prod: envs.PROD,
-        key: envs.SECRET_KEY
-    })
+    // console.log({
+    //     email: process.env.MAILER_EMAIL,
+    //     // port: process.env.PORT
+    //     port: envs.PORT,
+    //     prod: envs.PROD,
+    //     key: envs.SECRET_KEY
+    // })
 }

@@ -17,21 +17,21 @@ export class Server{
         console.log('Server started...')
 
    
-        const job = CronService.createJob(
-            '*/5 * * * * *',
-            () => {
+        // const job = CronService.createJob(
+        //     '*/5 * * * * *',
+        //     () => {
 
-                const url = 'http://google.com'
+        //         const url = 'http://google.com'
                 
-                new CheckService(
-                    fileSystemLogRepository,
-                    () => console.log(`${url} is ok`),
-                    (error) => console.log(error)
-                ).execute(url)
-            }
-        )
+        //         new CheckService(
+        //             fileSystemLogRepository,
+        //             () => console.log(`${url} is ok`),
+        //             (error) => console.log(error)
+        //         ).execute(url)
+        //     }
+        // )
 
-        job.start()
+        // job.start()
 
 
     }
