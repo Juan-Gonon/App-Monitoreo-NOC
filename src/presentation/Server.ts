@@ -10,8 +10,8 @@ import { EmailService } from "./email/email.service"
 
 
 const logRepository = new LogRepositoryImpl(
-    // new FileSystemDataSource()
-    new MongoLogDatasource()
+    new FileSystemDataSource()
+    // new MongoLogDatasource()
 )
 const emailService = new EmailService()
 
