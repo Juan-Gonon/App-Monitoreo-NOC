@@ -10,7 +10,7 @@ const logSchema = new mongoose.Schema({
     },
     level: {
         type: String,
-        enum: ['low', 'midum', 'hight']
+        enum: ['low', 'medium', 'high']
     },
     createdAt: {
         type: Date,
