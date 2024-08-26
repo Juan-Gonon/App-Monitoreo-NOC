@@ -1,4 +1,5 @@
 import { envs } from "./config/plugins/envs.plugin"
+import { MongoDatabase } from "./data"
 import { Server } from "./presentation/Server"
 import 'dotenv/config'
 
@@ -12,9 +13,14 @@ import 'dotenv/config'
 )()
 
 
-function main(){
+async function main(){
 
-    Server.start()
+    await MongoDatabase.connect({
+        mongoUrl: envs.MONGO_URL,
+        dbName: envs.MONGO_DB_NAME
+    })
+
+    // Server.start()
 
     // console.log({
     //     email: process.env.MAILER_EMAIL,
