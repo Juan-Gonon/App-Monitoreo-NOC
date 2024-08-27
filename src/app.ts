@@ -23,15 +23,13 @@ async function main(){
 
     const prisma = new PrismaClient()
 
-    const newLog = await prisma.logModel.create({
-        data: {
-            level: 'HIG',
-            message: 'Test message',
-            origin: 'App.ts'
+    const logs = await prisma.logModel.findMany({
+        where: {
+            level: 'HIG'
         }
     })
 
-    console.log(newLog)
+    console.log(logs)
 
     Server.start()
 }
