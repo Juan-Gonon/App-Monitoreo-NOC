@@ -3,6 +3,7 @@ import { CheckService } from "../domain/use-cases/checks/check-service"
 import { SendEmailLogs } from "../domain/use-cases/email/send-logs"
 import { FileSystemDataSource } from "../infrastructure/datasources/file-system.datasource"
 import { MongoLogDatasource } from "../infrastructure/datasources/mongo-log.datasource"
+import { PostgresLogDatasource } from "../infrastructure/datasources/postgres-log.datasource"
 import { LogRepositoryImpl } from "../infrastructure/repositories/log-impl.repository"
 import { CronService } from "./cron/cron-service"
 import { EmailService } from "./email/email.service"
@@ -10,8 +11,9 @@ import { EmailService } from "./email/email.service"
 
 
 const logRepository = new LogRepositoryImpl(
-    new FileSystemDataSource()
+    // new FileSystemDataSource()
     // new MongoLogDatasource()
+    new PostgresLogDatasource()
 )
 const emailService = new EmailService()
 
@@ -30,8 +32,8 @@ export class Server{
      
         // emailService.sendEmailWithFileSystemLogs([ 'jgonon549@gmail.com', 'juanfegonon27@gmail.com' ])
 
-        const logs = await logRepository.getLogs(logSeverityLevel.high)
-        console.log(logs)
+        // const logs = await logRepository.getLogs(logSeverityLevel.low)
+        // console.log(logs)
    
         // const job = CronService.createJob(
         //     '*/5 * * * * *',
