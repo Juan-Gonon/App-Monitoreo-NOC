@@ -1,5 +1,6 @@
 import { logSeverityLevel } from "../domain/entities/log.entities"
 import { CheckService } from "../domain/use-cases/checks/check-service"
+import { CheckServiceMultiple } from "../domain/use-cases/checks/check-service-multiple"
 import { SendEmailLogs } from "../domain/use-cases/email/send-logs"
 import { FileSystemDataSource } from "../infrastructure/datasources/file-system.datasource"
 import { MongoLogDatasource } from "../infrastructure/datasources/mongo-log.datasource"
@@ -10,9 +11,15 @@ import { EmailService } from "./email/email.service"
 
 
 
-const logRepository = new LogRepositoryImpl(
-    // new FileSystemDataSource()
-    // new MongoLogDatasource()
+const fsLogRepository = new LogRepositoryImpl(
+    new FileSystemDataSource()
+)
+
+const mongoLogRepository = new LogRepositoryImpl(
+       new MongoLogDatasource()
+)
+
+const postgresLogRepository = new LogRepositoryImpl(
     new PostgresLogDatasource()
 )
 const emailService = new EmailService()
@@ -35,21 +42,21 @@ export class Server{
         // const logs = await logRepository.getLogs(logSeverityLevel.low)
         // console.log(logs)
    
-        // const job = CronService.createJob(
-        //     '*/5 * * * * *',
-        //     () => {
+        const job = CronService.createJob(
+            '*/5 * * * * *',
+            () => {
 
-        //         const url = 'http://google.com'
+                const url = 'http://google.com'
                 
-        //         new CheckService(
-        //             logRepository,
-        //             () => console.log(`${url} is ok`),
-        //             (error) => console.log(error)
-        //         ).execute(url)
-        //     }
-        // )
+                new CheckServiceMultiple(
+                    [fsLogRepository, mongoLogRepository, postgresLogRepository],
+                    () => console.log(`${url} is ok`),
+                    (error) => console.log(error)
+                ).execute(url)
+            }
+        )
 
-        // job.start()
+        job.start()
 
 
     }
