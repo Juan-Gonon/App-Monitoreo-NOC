@@ -21,15 +21,6 @@ async function main(){
         dbName: envs.MONGO_DB_NAME
     })
 
-    const prisma = new PrismaClient()
-
-    const logs = await prisma.logModel.findMany({
-        where: {
-            level: 'HIG'
-        }
-    })
-
-    console.log(logs)
 
     Server.start()
 }
