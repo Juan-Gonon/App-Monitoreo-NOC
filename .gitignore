@@ -1,2 +1,9 @@
 /node_modules
 .vscode
+.env
+logs/
+/mongo
+/postgres
+/mongo-test
+/coverage
+.env.test
